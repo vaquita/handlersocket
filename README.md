@@ -23,7 +23,7 @@ Go driver for MariaDB/MySQL handlersocket plugin
 
 ### Find/Select operation
 
-        if rs, err = idx.
+        if rows, err = idx.
                 Reset().
                 Operator("=").
                 Values([]handlersocket.NullString{{"1", true}}).
@@ -31,7 +31,7 @@ Go driver for MariaDB/MySQL handlersocket plugin
                 fmt.Println(err)
                 os.Exit(1)
         } else {
-                fmt.Println("Result set : ", rs)
+                fmt.Println("Result set : ", rows)
         }
 
 ### Insert operation
