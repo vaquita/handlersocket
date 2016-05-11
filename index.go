@@ -144,3 +144,64 @@ func (idx *Index) Delete() (Result, error) {
 	idx.mOp = "D"
 	return idx.findModify()
 }
+
+func (idx *Index) Increment(values []NullString) (Result, error) {
+	idx.flags |= _IDX_FLAG_MODIFY_OP
+	idx.mOp = "+"
+
+	if values != nil {
+		idx.flags |= _IDX_FLAG_MODIFY_VALUES
+		idx.mValues = values
+	}
+	return idx.findModify()
+}
+
+func (idx *Index) Decrement(values []NullString) (Result, error) {
+	idx.flags |= _IDX_FLAG_MODIFY_OP
+	idx.mOp = "-"
+
+	if values != nil {
+		idx.flags |= _IDX_FLAG_MODIFY_VALUES
+		idx.mValues = values
+	}
+	return idx.findModify()
+}
+
+func (idx *Index) Updated(values []NullString) ([]Row, error) {
+	idx.flags |= _IDX_FLAG_MODIFY_OP
+	idx.mOp = "U?"
+
+	if values != nil {
+		idx.flags |= _IDX_FLAG_MODIFY_VALUES
+		idx.mValues = values
+	}
+	return idx.findModified()
+}
+
+func (idx *Index) Deleted() ([]Row, error) {
+	idx.flags |= _IDX_FLAG_MODIFY_OP
+	idx.mOp = "D?"
+	return idx.findModified()
+}
+
+func (idx *Index) Incremented(values []NullString) ([]Row, error) {
+	idx.flags |= _IDX_FLAG_MODIFY_OP
+	idx.mOp = "+?"
+
+	if values != nil {
+		idx.flags |= _IDX_FLAG_MODIFY_VALUES
+		idx.mValues = values
+	}
+	return idx.findModified()
+}
+
+func (idx *Index) Decremented(values []NullString) ([]Row, error) {
+	idx.flags |= _IDX_FLAG_MODIFY_OP
+	idx.mOp = "-?"
+
+	if values != nil {
+		idx.flags |= _IDX_FLAG_MODIFY_VALUES
+		idx.mValues = values
+	}
+	return idx.findModified()
+}

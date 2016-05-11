@@ -69,3 +69,87 @@ Go driver for MariaDB/MySQL handlersocket plugin
                 fmt.Println("Result : ", res)
         }
 
+### Increment operation
+
+        res, err = idx.
+                Reset().
+                Operator("=").
+                Values([]handlersocket.NullString{{"2", true}}).
+                Increment([]handlersocket.NullString{{"1", true}})
+        if err != nil {
+                fmt.Println(err)
+                os.Exit(1)
+        } else {
+                fmt.Println("Increment result : ", res)
+        }
+
+### Decrement operation
+
+        res, err = idx.
+                Reset().
+                Operator("=").
+                Values([]handlersocket.NullString{{"3", true}}).
+                Decrement([]handlersocket.NullString{{"1", true}})
+        if err != nil {
+                fmt.Println(err)
+                os.Exit(1)
+        } else {
+                fmt.Println("Decrement result : ", res)
+        }
+
+### Updated operation
+
+        rows, err = idx.
+                Reset().
+                Operator("=").
+                Values([]handlersocket.NullString{{"1", true}}).
+                Updated([]handlersocket.NullString{{"2", true}})
+        if err != nil {
+                fmt.Println(err)
+                os.Exit(1)
+        } else {
+                fmt.Println("Updated records : ", rows)
+        }
+
+### Deleted operation
+
+        rows, err = idx.
+                Reset().
+                Operator("=").
+                Values([]handlersocket.NullString{{"2", true}}).
+                Deleted()
+        if err != nil {
+                fmt.Println(err)
+                os.Exit(1)
+        } else {
+                fmt.Println("Deleted records : ", rows)
+        }
+
+### Incremented operation
+
+        rows, err = idx.
+                Reset().
+                Operator("=").
+                Values([]handlersocket.NullString{{"2", true}}).
+                Incremented([]handlersocket.NullString{{"1", true}})
+        if err != nil {
+                fmt.Println(err)
+                os.Exit(1)
+        } else {
+                fmt.Println("Incremented records : ", rows)
+        }
+
+### Decremented operation
+
+        rows, err = idx.
+                Reset().
+                Operator("=").
+                Values([]handlersocket.NullString{{"3", true}}).
+                Decremented([]handlersocket.NullString{{"1", true}})
+        if err != nil {
+                fmt.Println(err)
+                os.Exit(1)
+        } else {
+                fmt.Println("Decremented records : ", rows)
+        }
+

@@ -260,6 +260,34 @@ func (idx *Index) findModify() (Result, error) {
 
 }
 
+func (idx *Index) findModified() ([]Row, error) {
+	var (
+		err error
+		hs  *HandlerSocket
+	)
+
+	hs = idx.hs
+
+	idx.createFindModifyReq()
+
+	if err = hs.writeRequest(); err != nil {
+		return nil, err
+	}
+
+	// read find_modify response
+	if err = hs.readResponse(); err != nil {
+		return nil, err
+	}
+
+	switch hs.in.Bytes()[0] {
+	case '0':
+		return hs.parseResultSet()
+	default:
+		return nil, parseError(ErrOperationFailed, hs.in)
+	}
+	return nil, nil
+}
+
 func (idx *Index) createFindModifyReq() error {
 	var (
 		vLen  int
